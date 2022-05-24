@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mongodemo-service
+  name: mongodemo-svc
+  namespace: j2
+spec:
+  ports:
+  - port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: mongodemo
+  type: ClusterIP
+status:
+  loadBalancer: {}
+

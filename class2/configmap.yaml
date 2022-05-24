@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nodeconfig
+  namespace: j2
+data:
+  mongoHost: "mongodemo-svc.j2.svc.cluster.local"
+  mongoDB: "nodedemo"
+
