@@ -10,9 +10,10 @@ spec:
   - port: 27017
     protocol: TCP
     targetPort: 27017
+    nodePort: 32000  
   selector:
     app: mongodemo
-  type: ClusterIP
+  type: NodePort
 status:
   loadBalancer: {}
 
