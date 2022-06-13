@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}-node-ingress
+spec:
+  rules:
+    - host: node.localhost
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: helm-example-helm-node-app-nodedemo-svc-dev
+                port:
+                  number: 3000
+

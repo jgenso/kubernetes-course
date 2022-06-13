@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodedemo
+  name: {{ include "localstack.fullname" . }}-nodedemo-{{ .Values.env_slug }}
+  namespace: '{{ .Release.Namespace }}'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodedemo-{{ .Values.env_slug }}
+  template:
+    metadata:
+      labels:
+        app: nodedemo-{{ .Values.env_slug }}
+    spec:
+      containers:
+        - name: node-demo-{{ .Values.env_slug }}
+          image: "{{ .Values.node_image }}:{{ .Values.node_tag }}"
+          imagePullPolicy: Always  
+          env:
+           - name: MONGO_USERNAME
+             valueFrom:
+               secretKeyRef:
+                 name: {{ include "localstack.fullname" . }}-mongodb-creds-{{ .Values.env_slug }}
+                 key: username
+           - name: MONGO_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: {{ include "localstack.fullname" . }}-mongodb-creds-{{ .Values.env_slug }}
+                 key: password
+           - name: MONGO_HOST
+             valueFrom:
+               configMapKeyRef: 
+                 name: {{ include "localstack.fullname" . }}-node-cm-{{ .Values.env_slug }}
+                 key: mongoHost
+           - name: MONGO_DB
+             valueFrom: 
+               configMapKeyRef:
+                 name: {{ include "localstack.fullname" . }}-node-cm-{{ .Values.env_slug }}
+                 key: mongoDB
+
+
+

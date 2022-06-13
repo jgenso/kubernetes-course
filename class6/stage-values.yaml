@@ -1,0 +1,11 @@
+mongodb:
+  auth:
+    rootPassword: asdf1234
+
+generate_secrets: false
+mongodb_secret: asdf1234
+mongodb_username: root
+mongodb_name: node
+env_slug: stage
+node_image: docker.io/jgenso/node-demo
+node_tag: 0.0.1

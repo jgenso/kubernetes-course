@@ -1,0 +1,11 @@
+mongodb:
+  auth:
+    rootPassword: 123456789
+
+generate_secrets: true
+mongodb_secret: 123456789
+mongodb_username: root
+mongodb_name: node
+env_slug: prod
+node_image: docker.io/jgenso/node-demo
+node_tag: 0.0.1

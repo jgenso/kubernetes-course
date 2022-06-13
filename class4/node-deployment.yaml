@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodedemo
+  name: nodedemo
+  namespace: j2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodedemo
+  template:
+    metadata:
+      labels:
+        app: nodedemo
+    spec:
+      containers:
+        - name: node-demo
+          image: docker.io/jgenso/node-demo:0.0.1
+          imagePullPolicy: Always  
+          env:
+           - name: MONGO_USERNAME
+             valueFrom:
+               secretKeyRef:
+                 name: mongodb-creds
+                 key: username
+           - name: MONGO_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 name: mongodb-creds
+                 key: password
+           - name: MONGO_HOST
+             valueFrom:
+               configMapKeyRef: 
+                 name: nodeconfig
+                 key: mongoHost
+           - name: MONGO_DB
+             valueFrom: 
+               configMapKeyRef:
+                 name: nodeconfig
+                 key: mongoDB
+
+
